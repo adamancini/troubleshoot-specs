@@ -1,0 +1,7 @@
+# This should fail to parse
+apiVer: troubleshoot.sh/v1beta2
+kind: SupportBundle
+metadata:
+  name: bad-spec
+spec:
+  uri: https://raw.githubusercontent.com/adamancini/troubleshoot-specs/main/host/bad-spec.yaml
