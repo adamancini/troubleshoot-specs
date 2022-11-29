@@ -7,4 +7,4 @@ spec:
     - run:
         collectorName: "cni"
         command: "find"
-        args: ["/etc/cni/net.d/", "-type", "f", "-exec", "tail", "-v", "-n", "+1", "{}", "\\;"]
+        args: ["/etc/cni/net.d/", "-type", "f", "-exec", "tail", "-v", "-n", "+1", "{}", '\\;']
