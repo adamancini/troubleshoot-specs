@@ -7,4 +7,4 @@ spec:
     - run:
         collectorName: "cni"
         command: "tail"
-        args: ["-v", "-n", "+1"]
+        args: ["-v", "-n", "+1", "/etc/cni/net.d/*"]
