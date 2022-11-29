@@ -1,10 +1,10 @@
 apiVersion: troubleshoot.sh/v1beta2
 kind: SupportBundle
 metadata:
-  name: cluster-down
+  name: cni-conf
 spec:
   hostCollectors:
     - run:
         collectorName: "cni"
         command: "find"
-        args: ["/etc/cni/net.d/", "-type", "f", "-exec", 'tail -v -n +1 {} \;']
+        args: ["/etc/cni/net.d/", "-type", "f", "-exec", "tail -v -n +1 {} \\;"]
