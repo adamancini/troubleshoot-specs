@@ -3,6 +3,12 @@ kind: SupportBundle
 metadata:
   name: cni-conf
 spec:
+  collectors:
+    - copyFromHost:
+        collectorName: "collect CNI configs /etc/cni/net.d/*.conflist"
+        image: busybox:1
+        hostPath: /etc/cni/net.d/
+        extractArchive: true
   hostCollectors:
     - run:
         collectorName: "cni"
@@ -11,7 +17,7 @@ spec:
   analyzers:
     - textAnalyze:
         collectorName: "Check for CNI 'not ready' messages"
-        fileName:
+        fileName: 
         regex: 'Container runtime network not ready.*cni plugin not initialized'
         outcomes:
           - pass:
