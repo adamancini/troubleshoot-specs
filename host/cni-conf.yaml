@@ -6,5 +6,5 @@ spec:
   hostCollectors:
     - run:
         collectorName: "cni"
-        command: "tail"
-        args: ["-v", "-n", "+1", "/etc/cni/net.d/*"]
+        command: "find"
+        args: ["/etc/cni/net.d/", "-type", "f", "-exec", "tail", "-v", "-n", "+1", "{}", "\;"]
