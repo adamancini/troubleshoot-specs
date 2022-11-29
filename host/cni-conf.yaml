@@ -1,0 +1,10 @@
+apiVersion: troubleshoot.sh/v1beta2
+kind: SupportBundle
+metadata:
+  name: cluster-down
+spec:
+  hostCollectors:
+    - run:
+        collectorName: "cni"
+        command: "tail"
+        args: ["-v", "-n", "+1"]
