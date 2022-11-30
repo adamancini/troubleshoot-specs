@@ -5,34 +5,6 @@ metadata:
 spec:
   collectors:
     - copyFromHost:
-        collectorName: "collect CNI configs /etc/cni/net.d/*.conflist"
-        image: busybox:1
-        hostPath: /etc/cni/net.d/
-        extractArchive: true
-  hostCollectors:
-    - run:
-        collectorName: "cni"
-        command: "find"
-        args: ["/etc/cni/net.d/", "-type", "f", "-exec", "tail -v -n +1 {} \\"]
-  analyzers:
-    - textAnalyze:
-        collectorName: "Check for CNI 'not ready' messages"
-        fileName:
-        regex: "Container runtime network not ready.*cni plugin not initialized"
-        outcomes:
-          - pass:
-              when: "false"
-              message: "did not find this problem signature"
-          - fail:
-              when: "true"
-              message: "CNI plugin not initialized: there may be a problem with the CNI configuration on the host, check /etc/cni/net.d/*.conflist against a known good configuration"
-apiVersion: troubleshoot.sh/v1beta2
-kind: SupportBundle
-metadata:
-  name: cni-conf
-spec:
-  collectors:
-    - copyFromHost:
         collectorName: "cni"
         image: busybox:1
         hostPath: /etc/cni/net.d/
