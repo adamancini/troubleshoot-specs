@@ -12,9 +12,14 @@ spec:
   hostCollectors:
     - run:
         collectorName: "cni"
-        name: "cni"
+        name: "tail-cni"
         command: "sh"
         args: ["-c", "tail -v -n +1 /etc/cni/net.d/*.conflist"]
+    - run:
+        collectorName: "cni"
+        name: "ls-cni
+        command: "ls"
+        args: ["-lha", "/etc/cni/net.d/"]
   analyzers:
     - textAnalyze:
         checkName: "Check for CNI 'not ready' messages"
