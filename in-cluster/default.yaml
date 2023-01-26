@@ -40,6 +40,7 @@ spec:
         selector:
           - app=kotsadm-operator
         timeout: 10s
+
     - logs:
         collectorName: kotsadm-postgres-db
         name: kots/admin_console
@@ -102,6 +103,29 @@ spec:
               image: busybox:1
               command: ["wget"]
               args: ["-q", "-T", "5", "http://kotsadm-rqlite:4001/status?pretty", "-O-"]
+    - runPod:
+        name: etcdctl-metrics
+        namespace: kube-system
+        podSpec:
+          containers:
+            - name: etcdctl-metrics
+              image: busybox:1
+              command: ["curl"]
+              args:
+                - --cacert
+                - /etc/kubernetes/pki/etcd/ca.crt
+                - --cert
+                - /etc/kubernetes/pki/etcd/
+              volumeMounts:
+                - name: etcd-certs
+                  mountPath: /etc/kubernetes/pki/etcd/
+          volumes:
+            - etcd-certs:
+                hostPath:
+                  path: /etc/kubernetes/pki/etcd/
+                  type: Directory
+                  readOnly: true
+
     - secret:
         collectorName: kotsadm-replicated-registry
         name: kotsadm-replicated-registry # NOTE: this will not live under the kots/ directory like other collectors
